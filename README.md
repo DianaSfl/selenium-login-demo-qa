@@ -10,8 +10,12 @@ sourse env/bin/activate
 
 Run in terminal
 
-`pip install -r requirements.txt`
+```
+pip install -r requirements.txt
+```
 
 and start all tests
 
-`pytest`
+```
+pytest
+```
