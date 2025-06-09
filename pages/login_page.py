@@ -1,25 +1,18 @@
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+from locators.authorization_locators import LoginFormLocators
+from pages.base_page import BasePage
 
 
-class BasePage:
+class loginPage(BasePage):
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
 
-    def _find_element(self, locator, wait_time=10):
-        element = WebDriverWait(self.driver, wait_time).until(
-            EC.presence_of_element_located(locator))
-        return element
+    def authorization(self, name_text, password_text):
+        self.fill(value=name_text, locator=LoginFormLocators.NAME)
+        self.fill(value=password_text, locator=LoginFormLocators.PASSWORD)
+        self.click(LoginFormLocators.LOGIN_BUTTON)
 
-    def click(self, locator, wait_time = 10):
-        element = self._find_element(locator, wait_time)
-        element.click()
+    def reset_data(self):
+        self.click(LoginFormLocators.RESET_BUTTON)
 
-    def fill(self, value: str, locator, wait_time = 60):
-        element = self._find_element(locator, wait_time)
-        if value:
-            element.send_keys(value)
-
-    def text(self, locator, wait_time =20) -> str:
-        element = self._find_element(locator, wait_time)
-        return element.text
+    def get_result_text(self):
+        return self.text(LoginFormLocators.RESULT_TEXT)
