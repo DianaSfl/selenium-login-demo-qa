@@ -34,3 +34,6 @@ jobs:
       - name: Run tests
         run: |
           python -m pytest tests/ --junit-xml=reports/results.xml
+        env:
+          # Отключаем user-data-dir и sandbox для GitHub Actions
+          SELENIUM_OPTS: "--no-sandbox --disable-dev-shm-usage"
